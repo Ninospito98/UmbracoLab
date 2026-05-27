@@ -1,0 +1,41 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    var root = Umbraco.ContentAtRoot().FirstOrDefault();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <nav class="bg-gray-900 text-white px-8 py-4 flex justify-between items-center">
+        <a href="/" class="text-xl font-bold">Marvelvärlden</a>
+        <ul class="flex gap-6">
+            <li>
+                <a href="@root!.Url()" class="hover:text-gray-300">Startsida</a>
+            </li>
+    @foreach (var item in root.Children())
+    {
+        <li>
+            <a href="@item.Url()" class="hover:text-gray-300">@item.Name</a>
+        </li>
+    }
+    </ul>
+    </nav>
+
+    <main class="flex-1 p-8">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-gray-900 text-white text-center py-6">
+        <p>&copy; @DateTime.Now.Year Marvelvärlden. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
