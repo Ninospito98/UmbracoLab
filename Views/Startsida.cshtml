@@ -2,6 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var bannerBild = Model.Value<MediaWithCrops>("bannerBild");
+    var homeBgColor = Model.Value<string>("homeBgColor") ?? "#f3f4f6";
+
 }
 @{
     var blogg = Umbraco.ContentAtRoot().First().Children().FirstOrDefault(x => x.ContentType.Alias == "blogg");
@@ -13,8 +15,8 @@
     var antalMerch = Model.Value<int>("antalMerch");
     var merchs = shop?.Children().Take(antalMerch);
 }
-<main class="flex flex-col justify-center items-center">
-    <section class="text-center">
+<main class="flex flex-col justify-center items-center" style="background-color:@homeBgColor">
+    <section class="text-center pt-8">
         <h1 class="font-bold text-3xl mb-3">@Model.Value("bannerRubrik")</h1>
         <p class="mb-3">@Model.Value("bannerUndertext")</p>
         @if (bannerBild != null)
@@ -39,7 +41,7 @@
                 {
                     var bild = artikel.Value<MediaWithCrops>("blogPic");
 
-                    <a href="@artikel.Url()" class="bg-white rounded-2xl shadow hover:shadow-lg transition-shadow overflow-hidden">
+                    <a href="@artikel.Url()" class="bg-white rounded-2xl shadow hover:shadow-lg p-4 m-8 transition-shadow overflow-hidden">
                         <img src="@bild?.Url()" class="mx-auto h-80 mb-4 rounded" />
                         <div class="p-4">
                             <p class="text-xs text-gray-400 mb-1">@artikel.Value("blogDate")</p>

@@ -4,9 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var productPic = Model.Value<MediaWithCrops>("productImage");
     var knapp = Model.Value<Umbraco.Cms.Core.Models.Link>("productURL");
+    var productBgColor = Model.Value<string>("productBgColor") ?? "#ffffff";
 }
 
-<div class="max-w-5xl mx-auto py-12 px-8">
+<main style="background-color:@productBgColor" class="max-w-5xl mx-auto py-12 px-8">
     <a href="@Model.Parent?.Url()" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 transition-colors">
         ← Tillbaka till shop
     </a>
@@ -36,4 +37,4 @@
         </div>
 
     </div>
-</div>
+</main>

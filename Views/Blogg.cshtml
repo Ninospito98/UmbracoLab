@@ -4,37 +4,40 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var blogBanner = Model.Value<MediaWithCrops>("blogBanner");
+    var bloggBgColor = Model.Value<string>("bloggBgColor") ?? "#ffffff";
 }
 
-<section class="text-center">
-    <h1 class="font-bold text-3xl mb-3">@Model.Value("blogHeader")</h1>
-    @if (blogBanner != null)
-    {
-        <img src="@blogBanner.MediaUrl()" alt="Banner" class="mx-auto w-2/4" />
-    }
-    else
-    {
-        <img src="https://placehold.co/800x400?text=Bilder+Kommer+Snart" alt="Coming Soon" class="mx-auto w-3/4" />
-    }
-    <p class="my-5">@Model.Value("blogDesc")</p>
-</section>
-<section class="grid grid-cols-1 md:grid-cols-3 mt-8 text-center">
-    @foreach(var blog in Model.Children())
-    {
-        var blogPic = blog.Value<MediaWithCrops>("blogPic");
+<main style="background-color: @bloggBgColor">
+    <section class="text-center pt-8">
+        <h1 class="font-bold text-3xl mb-3">@Model.Value("blogHeader")</h1>
+        @if (blogBanner != null)
+        {
+            <img src="@blogBanner.MediaUrl()" alt="Banner" class="mx-auto w-2/4" />
+        }
+        else
+        {
+            <img src="https://placehold.co/800x400?text=Bilder+Kommer+Snart" alt="Coming Soon" class="mx-auto w-3/4" />
+        }
+        <p class="my-5">@Model.Value("blogDesc")</p>
+    </section>
+    <section class="grid grid-cols-1 md:grid-cols-3 mt-8 text-center">
+        @foreach (var blog in Model.Children())
+        {
+            var blogPic = blog.Value<MediaWithCrops>("blogPic");
 
-        <a href="@blog.Url()" class="block border p-4 m-8 rounded hover:shadow-lg">
-            <h2 class="font-bold my-2 text-lg">@blog.Value("blogTitle")</h2>
-            @if (blogPic != null)
-            {
-                <img src="@blogPic.MediaUrl()" alt="@Model.Value("title")" class="mx-auto h-80 mb-4 rounded" />
-            }
-            else
-            {
-                <img src="https://placehold.co/800x400?text=Image+Coming+Soon" alt="Coming Soon" class="w-full mb-4 rounded" />
-            }
-            <p class="text-gray-500 text-xs text-center">@blog.Value("blogDate")</p>
-            <p class="text-center">@blog.Value("blogText")</p>
-        </a>
-    }
-</section>
+            <a href="@blog.Url()" class="block border p-4 m-8 rounded hover:shadow-lg">
+                <h2 class="font-bold my-2 text-lg">@blog.Value("blogTitle")</h2>
+                @if (blogPic != null)
+                {
+                    <img src="@blogPic.MediaUrl()" alt="@Model.Value("title")" class="mx-auto h-80 mb-4 rounded" />
+                }
+                else
+                {
+                    <img src="https://placehold.co/800x400?text=Image+Coming+Soon" alt="Coming Soon" class="w-full mb-4 rounded" />
+                }
+                <p class="text-gray-500 text-xs text-center">@blog.Value("blogDate")</p>
+                <p class="text-center">@blog.Value("blogText")</p>
+            </a>
+        }
+    </section>
+</main>
